@@ -1,5 +1,6 @@
 Hello Talent Acquisition Team of Verto,
 My Name is Swapnil Dube ,I have created Inventory Management System Project.
+In That I have Included the Core Logic as well Bonus Features Like Inlcuding the Test Case(Junit+Mockito) ,getting the Low Stock Product as well.
 I have also provided a Loom video of the application, demonstrating each test case along with step-by-step debugging
 Thank you for the opportunity to complete this task. Please find the detailed documentation for the Inventory Management System below.
 
@@ -210,3 +211,4 @@ Input Validation:
 Stock quantities cannot be negative. The update endpoint automatically corrects negative input to 0.
 
 Stock modification endpoints (/increase, /decrease) include validation to ensure logical consistency (e.g., cannot increase by a negative number, cannot decrease more than is available).
+In addition, proper error handling and HTTP status code management have also been implemented.
