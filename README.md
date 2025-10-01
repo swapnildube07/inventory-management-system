@@ -1,5 +1,6 @@
 Hello Talent Acquisition Team of Verto,
-
+My Name is Swapnil Dube ,I have created Inventory Management System Project.
+I have also provided a Loom video of the application, demonstrating each test case along with step-by-step debugging
 Thank you for the opportunity to complete this task. Please find the detailed documentation for the Inventory Management System below.
 
 Inventory Management System
@@ -22,30 +23,30 @@ Follow these instructions to get the project up and running on your local machin
 
 Prerequisites
 Java Development Kit (JDK) 17 or later
-
 Apache Maven
-
 An IDE like IntelliJ IDEA or VS Code
-
 Postman for API testing
 
+
 Setup Instructions
-Clone the Repository
+
+1]Clone the Repository
 Open your terminal or command prompt and clone the repository using the following command:
 
 git clone [https://github.com/swapnildube07/inventory-management-system.git](https://github.com/swapnildube07/inventory-management-system.git)
 cd inventory-management-system
 
-Configure MongoDB Atlas Connection
 
-The project comes pre-configured with a MongoDB Atlas connection string in the src/main/resources/application.properties file for immediate use.
 
-No changes are required to run the application locally.
+I have Used Mongodb Altas and I have Also Implement String url in My project properties
 
-For production or personal use, you should replace the existing spring.data.mongodb.uri value with your own connection string.
+So ,No changes are required to run the application locally.
 
+
+
+After Cloning the Project
 Build the Project
-Run the following Maven command in the root directory of the project to download dependencies and build the application:
+2] Run the following Maven command in the root directory of the project to download dependencies and build the application:
 
 mvn clean install
 
@@ -56,7 +57,7 @@ mvn spring-boot:run
 
 The application will start on http://localhost:8080.
 
-3. How to Run Test Cases (API Usage Guide)
+3] How to Run Test Cases (API Usage Guide)
 Use Postman to interact with the API endpoints.
 
 Step 1: User Authentication (Login)
