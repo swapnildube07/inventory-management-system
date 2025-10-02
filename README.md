@@ -1,72 +1,96 @@
-Hello Talent Acquisition Team of Verto,
-My Name is Swapnil Dube ,I have created Inventory Management System Project.
-In That I have Included the Core Logic as well Bonus Features Like Inlcuding the Test Case(Junit+Mockito) ,getting the Low Stock Product as well.
-I have also provided a Loom video of the application, demonstrating each test case along with step-by-step debugging
-Thank you for the opportunity to complete this task. Please find the detailed documentation for the Inventory Management System below.
+# Project: Inventory Management System
+**Hello Talent Acquisition Team of Verto, My name is Swapnil Dube.
+I have developed an Inventory Management System project that includes core functionalities as well as bonus features such as comprehensive test cases (JUnit + Mockito) and a low-stock alert system. I have also provided a Loom video demonstrating the application's functionality, including test execution and step-by-step debugging.**
 
-Inventory Management System
-1. Project Description
-This project is a RESTful API for a multi-owner Inventory Management System built with Spring Boot. It provides a secure way for individual owners to manage their own product inventory. The system uses JWT (JSON Web Tokens) for authentication and authorization, ensuring that users can only access and manage their own data.
+## Project Overview
+This project is a secure, multi-owner RESTful API for an Inventory Management System, developed using Spring Boot. The system is designed to allow individual owners to manage their product inventory securely and independently. Authentication and authorization are handled using JSON Web Tokens (JWT), ensuring that each user can only access and manipulate their own data.
 
-The core functionalities include creating, reading, updating, and deleting products, as well as specialized operations for managing stock levels and identifying items that are running low.
+## Core Functionalities Implemented
+The primary API endpoints allow for complete management of product inventory:
 
-Tech Stack
-Backend: Java, Spring Boot, Spring Data
+#### 1]Create Product: An endpoint to add a new, unique product to the owner's specific inventory.
 
-Database: MongoDB Atlas
+#### 2]Retrieve Product by Name: An endpoint to fetch the complete details of a product using its name as a unique identifier for that owner.
 
-Security: Spring Security, JSON Web Token (JWT)
+#### 3]Update Product by Name: An endpoint to modify the details (e.g., description, price) of an existing product.
 
-Build Tool: Maven
+#### 4]Increase Stock Quantity: An atomic operation to safely increase the stock level of a specified product.
 
-2. How to Set Up and Run Locally
+#### 5]Decrease Stock Quantity: An atomic operation to decrease the stock level, with validation to prevent the quantity from falling below zero.
+
+## Bonus Features & Quality Assurance
+  **To enhance the project's robustness and utility, the following bonus features were implemented:**
+
+#### 1] Low Stock Identification: A dedicated endpoint to retrieve a list of all products that have fallen below a predefined low-stock threshold, enabling proactive inventory management.
+
+#### 2]Comprehensive Unit Testing (JUnit + Mockito): Rigorous test cases were developed to ensure the reliability of the core business logic, covering critical scenarios:
+
+**Test Case 1: Validating the successful increase of stock for a product.**
+
+**Test Case 2: Validating the successful decrease of stock when sufficient quantity is available**
+
+**Test Case 3: Ensuring the system correctly handles and prevents a stock decrease when the requested quantity exceeds the available amount.**
+
+### Project Demonstration
+**An accompanying Loom video has been provided. This video showcases a live demonstration of each API endpoint, runs the complete suite of JUnit tests, and includes a step-by-step debugging session to illustrate the application's internal logic.**
+
+# Tech Stack
+   Backend: Java, Spring Boot.
+
+   Database: MongoDB Atlas
+
+   Security: Spring Security, JSON Web Token (JWT)
+
+   Build Tool: Maven
+
+# 2. How to Set Up and Run Locally
+
 Follow these instructions to get the project up and running on your local machine.
 
-Prerequisites
-Java Development Kit (JDK) 17 or later
-Apache Maven
-An IDE like IntelliJ IDEA or VS Code
-Postman for API testing
+# Prerequisites
+   Java Development Kit (JDK) 17 or later
+
+   An IDE like IntelliJ IDEA or VS Code
+   Postman for API testing
 
 
-Setup Instructions
+# Setup Instructions
 
 1]Clone the Repository
 Open your terminal or command prompt and clone the repository using the following command:
 
-git clone [https://github.com/swapnildube07/inventory-management-system.git](https://github.com/swapnildube07/inventory-management-system.git)
+## git clone
+[https://github.com/swapnildube07/inventory-management-system.git](https://github.com/swapnildube07/inventory-management-system.git)
 cd inventory-management-system
 
 
 
-I have Used Mongodb Altas and I have Also Implement String url in My project properties
-
-So ,No changes are required to run the application locally.
+### I have Used Mongodb Altas and I have Also Implement String url in My project propertiesSo ,No changes are required to run the application locally.
 
 
 
 After Cloning the Project
 Build the Project
-2] Run the following Maven command in the root directory of the project to download dependencies and build the application:
+## 2] Run the following Maven command in the root directory of the project to download dependencies and build the application:
 
-mvn clean install
+**mvn clean install**
 
 Run the Application
 You can run the application using your IDE by running the main application class, or by using the Maven command:
 
-mvn spring-boot:run
+**mvn spring-boot:run**
 
 The application will start on http://localhost:8080.
 
-3] How to Run Test Cases (API Usage Guide)
+## 3] How to Run Test Cases (API Usage Guide)
 Use Postman to interact with the API endpoints.
 
-Step 1: User Authentication (Login)
+#### Step 1: User Authentication (Login)
 First, you need to log in to get a JWT token. This token is required for all other API calls.
 
 Endpoint: POST http://localhost:8080/public/login
 
-Body (raw, JSON):
+**Body (raw, JSON):**
 
 {
   "email": "swapnildube07@gmail.com",
@@ -75,20 +99,20 @@ Body (raw, JSON):
 
 Action: After sending the request, copy the token from the response body.
 
-Step 2: Authorizing Requests
+#### Step 2: Authorizing Requests
 For all subsequent requests, you must include the JWT token in the Authorization header. In Postman:
 
 Go to the Authorization tab.
 
-Select Type: Bearer Token.
+**Select Type: Bearer Token.**
 
 Paste the copied token into the Token field.
 
 API Endpoints & Test Cases
-a. Creating a Product
+###### a. Creating a Product
 Endpoint: POST http://localhost:8080/products
 
-Body (raw, JSON):
+**Body (raw, JSON):**
 
 {
   "productname": "Apple",
@@ -103,112 +127,118 @@ Test Case (Product Already Exists): Send the same request again.
 
 Expected Response: The API will throw an exception with a message like "Product already exists in inventory. Please use the update endpoint instead."
 
-b. Getting All Products
+##### b. Getting All Products
 Endpoint: GET http://localhost:8080/products
 
 Success Response: Returns a list of all products in the user's inventory.
 
-c. Search Product by Name
+##### c. Search Product by Name
+**Do The Authorization in Postman (Every Request Need Authorization)**
 Endpoint: POST http://localhost:8080/products/name
 
 Body (raw, JSON):
 
-{
+**{
   "productname": "Apple"
-}
+}**
 
+**Response**
 Success Response: Returns the details of the product named "Apple".
 
 Test Case (Product Not Found): Search for a product that doesn't exist.
 
 Request Body:
 
-{
+**{
   "productname": "Oranges"
-}
+}**
 
 Expected Response: An error message like "Product with name Oranges not found."
 
-d. Update Product by Name
+##### d. Update Product by Name
+
 Endpoint: PUT http://localhost:8080/products/{productName} (e.g., http://localhost:8080/products/Apple)
 
 Body (raw, JSON):
 
-{
+**{
   "productname": "Apple",
   "description": "Apples are red and fresh",
   "stockQuantity": -50,
   "lowStockThreshold": 25
-}
+}**
+
 
 Test Case (Handle Negative Stock): The stockQuantity is provided as a negative value (-50).
 
-Expected Response: The system automatically converts the negative stock to 0 and returns the updated product.
+##### Expected Response: The system automatically converts the negative stock to 0 and returns the updated product.
 
-{
+Response in Postman
+**{
   "productname": "Apple",
   "description": "Apples are red and fresh",
   "stockQuantity": 0,
   "lowStockThreshold": 25
-}
+}**
 
-e. Increase Stock
+##### e. Increase Stock
 Endpoint: PATCH http://localhost:8080/products/increase/{productName} (e.g., http://localhost:8080/products/increase/Apple)
 
 Body (raw, JSON):
 
-{
+**{
   "quantity": 25
-}
+}**
 
 Success Response: Returns the product with its stockQuantity increased by 25.
 
-Test Case (Invalid Quantity): Try to increase the stock with a negative value.
+**Test Case (Invalid Quantity): Try to increase the stock with a negative value.**
 
 Request Body:
 
-{
+**{
   "quantity": -25
-}
+}**
 
 Expected Response: An error message stating that the quantity must be a positive value.
 
-f. Decrease Stock
+##### f. Decrease Stock
 Endpoint: PATCH http://localhost:8080/products/decrease/{productName} (e.g., http://localhost:8080/products/decrease/Apple)
 
 Body (raw, JSON):
 
-{
+**{
   "quantity": 20
-}
+}**
 
 Success Response: Returns the product with its stockQuantity decreased by 20.
 
 Test Case (Insufficient Stock): Try to decrease the stock by more than the available quantity.
 
-Request Body:
+**Request Body**:
 
-{
+**{
   "quantity": 1120
-}
+}**
 
-Expected Response: An error message like "Cannot decrease stock. Insufficient quantity available."
+**Expected Response: An error message like "Cannot decrease stock. Insufficient quantity available."**
 
-g. Getting Low Stock Products
+##### g. Getting Low Stock Products
 Endpoint: GET http://localhost:8080/products/low-stock
 
 Success Response: Returns a list of all products where the stockQuantity is less than or equal to the lowStockThreshold.
 
-4. Assumptions and Design Choices
-Stateless Authentication: The application is stateless. JWT is used for securing the endpoints, and each request to a protected route must contain a valid token in the Authorization header.
+#### 4. Assumptions and Design Choices
 
-Data Isolation: The system is designed for multi-tenancy where each user (owner) has their own separate inventory. A user can only view and manage products they have created.
+**Stateless Authentication**: The application is stateless. JWT is used for securing the endpoints, and each request to a protected route must contain a valid token in the Authorization header.
 
-Unique Product Names: The productname is treated as a unique identifier within a single user's inventory to prevent duplicate entries.
+**Data Isolation**: The system is designed for multi-tenancy **where each user (owner) has their own separate inventory**. A user can only view and manage products they have created.
 
-Input Validation:
+**Unique Product Names**: The productname is treated as a **unique identifier within a single user's inventory** to prevent duplicate entries.
 
-Stock quantities cannot be negative. The update endpoint automatically corrects negative input to 0.
+##### Input Validation:
 
-Stock modification endpoints (/increase, /decrease) include validation to ensure logical consistency (e.g., cannot increase by a negative number, cannot decrease more than is available).
-In addition, proper error handling and HTTP status code management have also been implemented.
+**Stock quantities cannot be negative. The update endpoint automatically corrects negative input to 0.**
+
+**Stock modification endpoints (/increase, /decrease) include validation to ensure logical consistency (e.g., cannot increase by a negative number, cannot decrease more than is available).
+In addition, proper error handling and HTTP status code management have also been implemented.**
