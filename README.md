@@ -19,6 +19,10 @@ This project is a secure, multi-owner RESTful API for an Inventory Management Sy
    The same interface reference (productService) can point to different implementations if needed. using Autowired annotation 
    This gives flexibility — tomorrow I can create ProductServiceV2 and inject it without changing controller code.
 
+### Inheritance:
+  Where: Repository layer (ProductRepository, UserRepository).
+  How: These repositories extend MongoRepository  provided by Spring Data.
+  Why: This gives your repository classes all built-in CRUD methods (save, findById, delete, etc.) without writing code yourself.
 ## Core Functionalities Implemented
 The primary API endpoints allow for complete management of product inventory:
 
