@@ -17,7 +17,7 @@ This project is a secure, multi-owner RESTful API for an Inventory Management Sy
  ### Polymorphism:
    Where: ProductController depends on ProductService interface ,but at runtime Spring injects ProductServiceImpl.
    The same interface reference (productService) can point to different implementations if needed. using Autowired annotation 
-   This gives flexibility — tomorrow you could create ProductServiceV2 and inject it without changing controller code.
+   This gives flexibility — tomorrow I can create ProductServiceV2 and inject it without changing controller code.
 
 ## Core Functionalities Implemented
 The primary API endpoints allow for complete management of product inventory:
