@@ -5,6 +5,9 @@ import com.swapnildube.inventory_management.Service.ProductSerice;
 
 import com.swapnildube.inventory_management.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,7 @@ public class ProductServiceImpl implements ProductSerice {
 
 
     @Override
+    @CachePut(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #result.id")
     public Product createProduct(String ownerId, Product product) {
 
         product.setOwnerId(ownerId);
@@ -34,6 +38,12 @@ public class ProductServiceImpl implements ProductSerice {
         return productRepository.findAllByOwnerId(ownerId);
     }
 
+    @Override
+    @Cacheable(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #id")
+    public Product getProductById(String ownerId, String id) {
+        return productRepository.findByIdAndOwnerId(id, ownerId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found for this owner."));
+    }
 
 
     @Override
@@ -45,6 +55,7 @@ public class ProductServiceImpl implements ProductSerice {
 
 
     @Override
+    @CachePut(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #result.id")
     public Product updateProduct(String ownerId, String productname, Product updatedProduct) {
             Product existing  = getProductByName(ownerId,productname);
             existing.setDescription(updatedProduct.getDescription());
@@ -58,12 +69,15 @@ public class ProductServiceImpl implements ProductSerice {
     }
 
     @Override
-    public void deleteProduct(String ownerId, String name) {
+    @CacheEvict(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #result.id")
+    public Product deleteProduct(String ownerId, String name) {
             Product product = getProductByName(ownerId, name);
             productRepository.delete(product);
+            return product;
     }
 
     @Override
+    @CachePut(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #result.id")
     public Product increaseStock(String ownerId, String productname, int Quantity) {
         if(Quantity<0){
             throw  new IllegalArgumentException("Increase Stock Quantity Must be Positive");
@@ -75,6 +89,7 @@ public class ProductServiceImpl implements ProductSerice {
     }
 
     @Override
+    @CachePut(cacheNames = "products", key = "'owner:' + #ownerId + ':id:' + #result.id")
     public Product decreaseStock(String ownerId, String ProductName, int Quantity) {
         Product product =getProductByName(ownerId,ProductName);
         if(Quantity<0){
@@ -93,4 +108,3 @@ public class ProductServiceImpl implements ProductSerice {
         return productRepository.findLowStockProductsForOwner(ownerId);
     }
 }
-
