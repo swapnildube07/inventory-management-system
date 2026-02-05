@@ -16,6 +16,7 @@ public interface ProductRepository extends MongoRepository<Product,String> {
 
   Optional<Product> findByOwnerIdAndProductnameIgnoreCase(String ownerId, String productname);
 
+  Optional<Product> findByIdAndOwnerId(String id, String ownerId);
 
   @Query("{ 'ownerId': ?0, $expr: { $lte: [ '$stockQuantity', '$lowStockThreshold' ] } }")
   List<Product> findLowStockProductsForOwner(String ownerId);

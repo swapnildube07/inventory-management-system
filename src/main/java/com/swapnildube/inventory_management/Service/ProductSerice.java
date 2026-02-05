@@ -15,6 +15,7 @@ public interface ProductSerice {
     List<Product> getAllProducts(String ownerId);
 
 
+    Product getProductById(String ownerId, String id);
 
     Product getProductByName(String ownerId, String name);
 
@@ -22,7 +23,7 @@ public interface ProductSerice {
 
     Product updateProduct(String ownerId, String name, Product updatedProduct);
 
-    void deleteProduct(String ownerId, String name);
+    Product deleteProduct(String ownerId, String name);
 
     Product increaseStock(String ownerId, String name, int Quantity);
 

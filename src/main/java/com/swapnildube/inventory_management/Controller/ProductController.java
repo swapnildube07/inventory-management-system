@@ -32,6 +32,16 @@ public class ProductController {
         return productService.getAllProducts(currentOwnerId());
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable String id) {
+        try {
+            Product product = productService.getProductById(currentOwnerId(), id);
+            return ResponseEntity.ok(product);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product having id " + id + " not Found");
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try {
