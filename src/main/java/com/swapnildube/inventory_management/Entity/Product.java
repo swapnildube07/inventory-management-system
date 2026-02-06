@@ -15,19 +15,22 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Document(collection = "Products")
 @CompoundIndexes({
         @CompoundIndex(def = "{'ownerId':1,'productname':1}", unique = true)
 
 })
 
-public class Product  {
+public class Product implements Serializable {
+
+
+    private static final long serialVersionUID = 1L;
+
 
     @Id
     private String id;
