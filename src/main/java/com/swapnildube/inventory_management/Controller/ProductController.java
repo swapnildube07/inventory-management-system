@@ -2,6 +2,7 @@ package com.swapnildube.inventory_management.Controller;
 
 import com.swapnildube.inventory_management.Entity.Product;
 import com.swapnildube.inventory_management.Service.ProductSerice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,11 +15,12 @@ import java.util.Map;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductSerice productService;
+    @Autowired
+    private ProductSerice productService;
 
-    public ProductController(ProductSerice productService) {
-        this.productService = productService;
-    }
+//    public ProductController(ProductSerice productService) {
+//        this.productService = productService;
+//    }
 
     private String currentOwnerId() {
 
