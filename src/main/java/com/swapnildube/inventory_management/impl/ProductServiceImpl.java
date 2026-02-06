@@ -1,8 +1,5 @@
 package com.swapnildube.inventory_management.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swapnildube.inventory_management.Entity.Product;
 import com.swapnildube.inventory_management.Service.ProductSerice;
 
@@ -27,13 +24,6 @@ public class ProductServiceImpl implements ProductSerice {
     @Autowired
     @Qualifier("productListRedisTemplate")
     private final RedisTemplate<String, List<Product>> productListRedisTemplate;
-
-    @Autowired
-    @Qualifier("redisTemplate")
-    private final RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private final ObjectMapper objectMapper;
 
     private void evictProductsCache(String ownerId) {
         if (productListRedisTemplate == null) {
@@ -84,37 +74,22 @@ public class ProductServiceImpl implements ProductSerice {
     public List<Product> getAllProducts(String ownerId) {
         String key = "products:owner:" + ownerId;
 
-        // --- READ FROM REDIS ---
-        String cachedJson = redisTemplate.opsForValue().get(key).toString();
-
-        if (cachedJson != null) {
-            try {
-                // Manually convert the JSON String back to List<Product>
-                return objectMapper.readValue(cachedJson, new TypeReference<List<Product>>() {});
-            } catch (JsonProcessingException e) {
-                System.out.println("Redis Deserialize Error: " + e.getMessage());
-                // If cache is corrupt, just ignore it and fetch from DB
+        if (productListRedisTemplate != null) {
+            List<Product> cached = productListRedisTemplate.opsForValue().get(key);
+            if (cached != null) {
+                return cached;
             }
         }
 
-        // --- FETCH FROM DB ---
         List<Product> products = productRepository.findAllByOwnerId(ownerId);
 
-        // --- WRITE TO REDIS ---
-        try {
-            // Manually convert the List to a single JSON String
-            // This handles "Multiple products" by creating one JSON Array string: "[{...}, {...}]"
-            String jsonAsString = objectMapper.writeValueAsString(products);
-
-            redisTemplate.opsForValue().set(
+        if (productListRedisTemplate != null) {
+            productListRedisTemplate.opsForValue().set(
                     key,
-                    jsonAsString,
+                    products,
                     15,
                     TimeUnit.MINUTES
             );
-        } catch (JsonProcessingException e) {
-            System.out.println("Redis Serialize Error: " + e.getMessage());
-            e.printStackTrace();
         }
 
         return products;
@@ -186,4 +161,3 @@ public class ProductServiceImpl implements ProductSerice {
         return productRepository.findLowStockProductsForOwner(ownerId);
     }
 }
-
